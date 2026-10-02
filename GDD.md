@@ -52,6 +52,72 @@ To ensure the project can expand into a collection of mini-games, the architectu
 *   **`BoardGenerator.cs`:** Instantiates card prefabs inside a Unity `GridLayoutGroup` based on selected dimensions, assigning unique pair IDs.
 *   **`Card.cs` (Attached to Card Prefab):** Handles individual card states (FaceDown, FaceUp, Locked), triggers flip animations (via Scale X tweening), and passes click events to the controller.
 
+Full list
+```
+Assets/
+│
+├── _Project/ 
+│   │
+│   ├── Scripts/
+│   │   ├── Core/
+│   │   │   ├── GameManager.cs
+│   │   │   ├── GameState.cs
+│   │   │   └── SceneLoader.cs
+│   │   │
+│   │   ├── Memo/
+│   │   │   ├── MemoGameController.cs
+│   │   │   ├── BoardGenerator.cs
+│   │   │   ├── Card.cs
+│   │   │   ├── CardState.cs
+│   │   │   ├── Player.cs
+│   │   │   └── ScoreTracker.cs
+│   │   │
+│   │   ├── Data/
+│   │   │   ├── GameConfig.cs
+│   │   │   ├── DeckTheme.cs
+│   │   │   └── CardData.cs
+│   │   │
+│   │   ├── UI/
+│   │   │   ├── MainMenuUI.cs
+│   │   │   ├── GameplayHUD.cs
+│   │   │   ├── PauseMenuUI.cs
+│   │   │   ├── EndGameUI.cs
+│   │   │   └── CustomCardCreatorUI.cs
+│   │   │
+│   │   ├── Audio/
+│   │   │   └── AudioManager.cs
+│   │   │
+│   │   └── Utils/
+│   │       ├── FisherYates.cs
+│   │       └── Events.cs
+│   │
+│   ├── Prefabs/
+│   │   ├── Cards/
+│   │   │   └── Card.prefab
+│   │   ├── UI/
+│   │   └── FX/
+│   │
+│   ├── ScriptableObjects/
+│   │   ├── Configs/
+│   │   └── Themes/
+│   │
+│   ├── Scenes/
+│   │   ├── Bootstrap.unity
+│   │   ├── MainMenu.unity
+│   │   └── Gameplay.unity
+│   │
+│   ├── Art/
+│   │   ├── Sprites/
+│   │   ├── UI/
+│   │   └── Fonts/
+│   │
+│   └── Audio/
+│       ├── SFX/
+│       └── Music/
+│
+└── ThirdParty/
+```
+
 
 ## 5. Visuals & Aesthetic ("Game Juice")
 Since the developer is a programmer, art constraints are handled strategically:
