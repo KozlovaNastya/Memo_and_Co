@@ -20,6 +20,13 @@ namespace MemoAndCo.Core
         private void Start()
         {
             ChangeState(GameState.Bootstrap);
+            if (SceneLoader.Instance == null)
+            {
+                Debug.LogError("SceneLoader не найден. —цена запущена напр€мую, а не через Bootstrap.");
+                return;
+            }
+            SceneLoader.Instance.LoadMainMenu();
+            ChangeState(GameState.MainMenu);
         }
 
         public void ChangeState(GameState newState)
