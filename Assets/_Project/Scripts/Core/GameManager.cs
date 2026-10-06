@@ -1,16 +1,33 @@
 using UnityEngine;
-
-public class NewMonoBehaviourScript : MonoBehaviour
+namespace MemoAndCo.Core
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public class GameManager : MonoBehaviour
     {
-        
+        public static GameManager Instance { get; private set; }
+        public GameState CurrentState { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        private void Start()
+        {
+            ChangeState(GameState.Bootstrap);
+        }
+
+        public void ChangeState(GameState newState)
+        {
+            if (CurrentState == newState) return;
+            GameState oldState = CurrentState;
+            CurrentState = newState;
+            Debug.Log($"{oldState} -> {newState}");
+        }
     }
 }
