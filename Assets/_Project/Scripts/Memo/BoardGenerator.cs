@@ -18,7 +18,7 @@ namespace MemoAndCo.Memo
             }
             int pairCount = rows * columns / 2;
             int[] pairIds = new int[pairCount * 2];
-            for (int i = 0; i < pairIds.Length; i+=2)
+            for (int i = 0; i < pairIds.Length; i++)
             {
                 pairIds[i] = (i / 2) + 1;
             }

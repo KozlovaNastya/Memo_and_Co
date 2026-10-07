@@ -30,17 +30,18 @@ namespace MemoAndCo.Memo
 
         public void Setup(int pairId)
         {
-            PairId = pairId;
             if(spriteRenderer == null)
             {
-                Debug.Log($"{spriteRenderer} is null");
+                Debug.Log("spriteRenderer is null");
                 return;
             }
+            PairId = pairId;
             spriteRenderer.color = faceDownColor;
         }
         public void FlipUp()
         {
             if (State == CardState.Locked) return;
+            if (State == CardState.FaceUp) return;
             State = CardState.FaceUp;
             spriteRenderer.color = faceUpColor[PairId % faceUpColor.Length];
         }

@@ -33,6 +33,7 @@ namespace MemoAndCo.Core
                 return;
             }
             SceneManager.LoadScene(sceneName);
+            
         }
     }
 }
