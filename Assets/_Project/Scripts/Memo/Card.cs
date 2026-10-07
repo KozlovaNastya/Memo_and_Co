@@ -50,6 +50,11 @@ namespace MemoAndCo.Memo
             State = CardState.FaceDown;
             spriteRenderer.color = faceDownColor;
         }
+        public void Lock()
+        {
+            if (State == CardState.Locked) return;
+            State = CardState.Locked;
+        }
         private void OnMouseDown()
         {
             if (State != CardState.FaceDown) return;
