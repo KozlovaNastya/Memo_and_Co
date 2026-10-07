@@ -1,16 +1,59 @@
+using System;
 using UnityEngine;
-
-public class Card : MonoBehaviour
+namespace MemoAndCo.Memo
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class Card : MonoBehaviour
     {
-        
-    }
+        public int PairId { get; private set; }
+        public CardState State { get; private set; } = CardState.FaceDown;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public event Action<Card> OnCardClicked;
+
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Color faceDownColor = new Color(0.2f, 0.2f, 0.3f);
+        [SerializeField] private Color[] faceUpColor = new Color[] 
+        { 
+        Color.yellow,
+        Color.red,
+        Color.green,
+        Color.blue,
+        Color.white,
+        Color.black,
+        Color.purple,
+        Color.azure,
+        Color.chocolate,
+        Color.magenta,
+        Color.darkSalmon,
+        Color.lavender
+        };
+
+        public void Setup(int pairId)
+        {
+            PairId = pairId;
+            if(spriteRenderer == null)
+            {
+                Debug.Log($"{spriteRenderer} is null");
+                return;
+            }
+            spriteRenderer.color = faceDownColor;
+        }
+        public void FlipUp()
+        {
+            if (State == CardState.Locked) return;
+            State = CardState.FaceUp;
+            spriteRenderer.color = faceUpColor[PairId % faceUpColor.Length];
+        }
+        public void FlipDown()
+        {
+            if (State == CardState.Locked) return;
+            State = CardState.FaceDown;
+            spriteRenderer.color = faceDownColor;
+        }
+        private void OnMouseDown()
+        {
+            if (State != CardState.FaceDown) return;
+            OnCardClicked?.Invoke(this);
+        }
     }
 }
