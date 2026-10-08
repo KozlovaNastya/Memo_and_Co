@@ -1,16 +1,18 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 namespace MemoAndCo.Memo
 {
-    [RequireComponent(typeof(SpriteRenderer))]
-    public class Card : MonoBehaviour
+    [RequireComponent(typeof(Image))]
+    public class Card : MonoBehaviour, IPointerClickHandler
     {
         public int PairId { get; private set; }
         public CardState State { get; private set; } = CardState.FaceDown;
 
         public event Action<Card> OnCardClicked;
 
-        [SerializeField] private SpriteRenderer spriteRenderer;
+        private Image cardImage;
         [SerializeField] private Color faceDownColor = new Color(0.2f, 0.2f, 0.3f);
         [SerializeField] private Color[] faceUpColor = new Color[] 
         { 
@@ -27,36 +29,33 @@ namespace MemoAndCo.Memo
         Color.darkSalmon,
         Color.lavender
         };
-
+        private void Awake()
+        {
+            cardImage = GetComponent<Image>();
+        }
         public void Setup(int pairId)
         {
-            if(spriteRenderer == null)
-            {
-                Debug.Log("spriteRenderer is null");
-                return;
-            }
             PairId = pairId;
-            spriteRenderer.color = faceDownColor;
+            cardImage.color = faceDownColor;
         }
         public void FlipUp()
         {
-            if (State == CardState.Locked) return;
-            if (State == CardState.FaceUp) return;
+            if (State == CardState.Locked || State == CardState.FaceUp) return;
             State = CardState.FaceUp;
-            spriteRenderer.color = faceUpColor[PairId % faceUpColor.Length];
+            cardImage.color = faceUpColor[PairId % faceUpColor.Length];
         }
         public void FlipDown()
         {
             if (State == CardState.Locked) return;
             State = CardState.FaceDown;
-            spriteRenderer.color = faceDownColor;
+            cardImage.color = faceDownColor;
         }
         public void Lock()
         {
             if (State == CardState.Locked) return;
             State = CardState.Locked;
         }
-        private void OnMouseDown()
+        public void OnPointerClick(PointerEventData eventData)
         {
             if (State != CardState.FaceDown) return;
             OnCardClicked?.Invoke(this);
