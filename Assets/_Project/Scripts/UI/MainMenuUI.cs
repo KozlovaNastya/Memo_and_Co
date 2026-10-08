@@ -31,7 +31,8 @@ namespace MemoAndCo.UI
                 Debug.LogError("SceneLoader.Instance is null");
                 return;
             }
-            SceneLoader.Instance.LoadGameplay();
+            GameManager.Instance.GoToGamePlay();
+            
         }
     }
 }

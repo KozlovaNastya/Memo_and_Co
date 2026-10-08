@@ -12,7 +12,7 @@ namespace MemoAndCo.Core
         {
             if (Instance != null && Instance != this)
             {
-                Destroy(Instance);
+                Destroy(gameObject);
                 return;
             }
             Instance = this;
