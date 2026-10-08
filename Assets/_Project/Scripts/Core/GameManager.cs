@@ -1,7 +1,7 @@
 using UnityEngine;
+
 namespace MemoAndCo.Core
 {
-
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
@@ -25,11 +25,19 @@ namespace MemoAndCo.Core
                 Debug.LogError("SceneLoader не найден. —цена запущена напр€мую, а не через Bootstrap.");
                 return;
             }
-            SceneLoader.Instance.LoadMainMenu();
-            ChangeState(GameState.MainMenu);
+            GoToMainMenu();
         }
-
-        public void ChangeState(GameState newState)
+        public void GoToMainMenu()
+        {
+            ChangeState(GameState.MainMenu);
+            SceneLoader.Instance.LoadMainMenu();
+        }
+        public void GoToGamePlay()
+        {
+            ChangeState(GameState.Gameplay);
+            SceneLoader.Instance.LoadGameplay();
+        }
+        private void ChangeState(GameState newState)
         {
             if (CurrentState == newState) return;
             GameState oldState = CurrentState;
