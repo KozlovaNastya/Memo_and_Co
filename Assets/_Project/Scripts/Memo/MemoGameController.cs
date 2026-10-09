@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 namespace MemoAndCo.Memo
 {
@@ -62,11 +63,17 @@ namespace MemoAndCo.Memo
             }
             else
             {
-                firstSelected.FlipDown();
-                secondSelected.FlipDown();
-                firstSelected = null;
-                secondSelected = null;
+                StartCoroutine(FlipBackAfterDelay(1f));
             }
+        }
+        private IEnumerator FlipBackAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
+            firstSelected.FlipDown();
+            secondSelected.FlipDown();
+            firstSelected = null;
+            secondSelected = null;
         }
     }
 }
