@@ -9,6 +9,17 @@ namespace MemoAndCo.Memo
         [SerializeField] private int rows = 4;
         [SerializeField] private int columns = 4;
 
+        [SerializeField] private int playerCount = 1;
+        private static readonly Color[] playerColors = new Color[]
+        {
+            Color.red,
+            Color.green,
+            Color.blue
+        };
+
+        private ScoreTracker scoreTracker = new ScoreTracker();
+        private TurnManager turnManager;
+
         private List<Card> cards = new List<Card>();
         private Card firstSelected;
         private Card secondSelected;
@@ -23,6 +34,12 @@ namespace MemoAndCo.Memo
             {
                 card.OnCardClicked += OnCardClicked;
             }
+            for (int i = 0; i < playerCount; i++) 
+            {
+                Player player = new Player($"Player{i}", i, playerColors[i]);
+                scoreTracker.AddPlayer(player);
+            }
+            turnManager = new TurnManager(scoreTracker.Players);
         }
         private void OnDestroy()
         {
@@ -53,10 +70,13 @@ namespace MemoAndCo.Memo
                 firstSelected.Lock();
                 secondSelected.Lock();
                 pairsFound++;
-                Debug.Log("Pair found");
+                scoreTracker.AddPointToPlayer(turnManager.CurrentPlayer);
+                Debug.Log($"Pair found by {turnManager.CurrentPlayer.Name}");
                 if (pairsFound == totalPairs) 
                 {
                     Debug.Log("Victory");
+                    Player winner = scoreTracker.GetWinner(turnManager.CurrentPlayer);
+                    Debug.Log($"Winner {winner.Name}, score {winner.Score}");
                 }
                 firstSelected = null;
                 secondSelected = null;
@@ -74,6 +94,7 @@ namespace MemoAndCo.Memo
             secondSelected.FlipDown();
             firstSelected = null;
             secondSelected = null;
+            turnManager.NextTurn();
         }
     }
 }

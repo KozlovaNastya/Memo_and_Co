@@ -272,6 +272,7 @@ MonoBehaviour:
   boardGenerator: {fileID: 1529491276}
   rows: 4
   columns: 4
+  playerCount: 3
 --- !u!1 &952742030
 GameObject:
   m_ObjectHideFlags: 0

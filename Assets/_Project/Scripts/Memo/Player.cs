@@ -1,16 +1,26 @@
 using UnityEngine;
-
-public class Player : MonoBehaviour
+namespace MemoAndCo.Memo
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class Player
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public string Name { get; private set; }
+        public int Score { get; private set; }
+        public int Index { get; private set; }
+        public Color Color { get; private set; }
+        public Player(string name, int index, Color color)
+        {
+            Name = name;
+            Index = index;
+            Color = color;
+            Score = 0;
+        }
+        public void AddPoint()
+        {
+            Score++;
+        }
+        public void ResetPoint() 
+        { 
+            Score = 0;
+        }
     }
 }
